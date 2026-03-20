@@ -382,9 +382,10 @@
       letter-spacing: -0.02em;
       margin: 0 auto;
     }
+    /* Carousel — mobile first: single phone, full width */
     .carousel-wrap {
       position: relative;
-      max-width: 700px;
+      max-width: 360px;
       margin: 0 auto;
       overflow: hidden;
     }
@@ -393,45 +394,37 @@
       transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
     }
     .carousel-slide {
-      flex: 0 0 33.333%;
+      flex: 0 0 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
-      padding: 1rem 0.75rem;
-      transition: opacity 0.42s ease, transform 0.42s ease;
-      opacity: 0.35;
-      transform: scale(0.88);
-    }
-    .carousel-slide.active {
+      padding: 1rem 1.5rem;
       opacity: 1;
       transform: scale(1);
     }
     .phone-frame {
       width: 100%;
-      max-width: 200px;
+      max-width: 300px;
       background: #0a0a0a;
-      border-radius: 36px;
-      padding: 10px;
+      border-radius: 44px;
+      padding: 12px;
       box-shadow: 0 0 0 1.5px #333, 0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px #222;
       position: relative;
     }
-    .carousel-slide.active .phone-frame {
-      max-width: 240px;
-    }
     .phone-notch {
       position: absolute;
-      top: 10px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
-      width: 80px;
-      height: 22px;
+      width: 100px;
+      height: 28px;
       background: #0a0a0a;
-      border-radius: 0 0 14px 14px;
+      border-radius: 0 0 18px 18px;
       z-index: 2;
     }
     .phone-screen {
-      border-radius: 28px;
+      border-radius: 34px;
       overflow: hidden;
       display: block;
       width: 100%;
@@ -441,14 +434,7 @@
     }
     .slide-caption {
       text-align: center;
-      max-width: 240px;
-      transition: opacity 0.42s ease;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .carousel-slide.active .slide-caption {
-      opacity: 1;
-      pointer-events: auto;
+      max-width: 300px;
     }
     .slide-caption strong {
       display: block;
@@ -500,6 +486,40 @@
       transition: background 0.18s, transform 0.18s;
     }
     .carousel-dot.active { background: var(--amber); transform: scale(1.3); }
+
+    /* Desktop: show three phones with peek+dim */
+    @media (min-width: 720px) {
+      .carousel-wrap {
+        max-width: 820px;
+        overflow: hidden;
+      }
+      .carousel-slide {
+        flex: 0 0 33.333%;
+        padding: 1rem 0.75rem;
+        transition: opacity 0.42s ease, transform 0.42s ease;
+        opacity: 0.32;
+        transform: scale(0.85);
+      }
+      .carousel-slide.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .phone-frame {
+        max-width: 240px;
+      }
+      .carousel-slide.active .phone-frame {
+        max-width: 280px;
+      }
+      .slide-caption {
+        transition: opacity 0.42s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .carousel-slide.active .slide-caption {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -707,23 +727,29 @@
   const slides = document.querySelectorAll('.carousel-slide');
   let current = 0;
   const total = 5;
+  const desktop = () => window.innerWidth >= 720;
 
   function goTo(n) {
     current = (n + total) % total;
-    // Each slide is 33.333% wide; offset so active slide is centered (subtract 1 slide width)
-    track.style.transform = `translateX(calc(-${current * 33.333}% + 33.333%))`;
-    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    if (desktop()) {
+      // 3-up: each slide 33.333% wide, offset to center active
+      track.style.transform = `translateX(calc(-${current * 33.333}% + 33.333%))`;
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    } else {
+      // Single: each slide 100% wide
+      track.style.transform = `translateX(-${current * 100}%)`;
+      slides.forEach(s => s.classList.remove('active'));
+    }
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
-  // Init: mark first slide active and center it
   goTo(0);
+  window.addEventListener('resize', () => goTo(current));
 
   document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
   document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
   dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
 
-  // Swipe support
   let startX = 0;
   track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
   track.addEventListener('touchend', e => {
