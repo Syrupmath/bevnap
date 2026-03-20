@@ -712,11 +712,13 @@
   function goTo(n) {
     current = (n + total) % total;
     if (desktop()) {
-      // 3-up: each slide 33.333% wide, offset to center active
-      track.style.transform = `translateX(calc(-${current * 33.333}% + 33.333%))`;
+      // Each slide is 33.333% of track width.
+      // To center the active slide, shift left by (current * slideWidth) then add 1 slideWidth to offset for the left neighbor.
+      const slideW = track.parentElement.offsetWidth / 3;
+      const offset = -(current * slideW) + slideW;
+      track.style.transform = `translateX(${offset}px)`;
       slides.forEach((s, i) => s.classList.toggle('active', i === current));
     } else {
-      // Single: each slide 100% wide
       track.style.transform = `translateX(-${current * 100}%)`;
       slides.forEach(s => s.classList.remove('active'));
     }
