@@ -704,29 +704,16 @@
 (function() {
   const track = document.getElementById('carouselTrack');
   const dots = document.querySelectorAll('.carousel-dot');
-  const slides = document.querySelectorAll('.carousel-slide');
   let current = 0;
   const total = 5;
-  const desktop = () => window.innerWidth >= 720;
 
   function goTo(n) {
     current = (n + total) % total;
-    if (desktop()) {
-      // Each slide is 33.333% of track width.
-      // To center the active slide, shift left by (current * slideWidth) then add 1 slideWidth to offset for the left neighbor.
-      const slideW = track.parentElement.offsetWidth / 3;
-      const offset = -(current * slideW) + slideW;
-      track.style.transform = `translateX(${offset}px)`;
-      slides.forEach((s, i) => s.classList.toggle('active', i === current));
-    } else {
-      track.style.transform = `translateX(-${current * 100}%)`;
-      slides.forEach(s => s.classList.remove('active'));
-    }
+    track.style.transform = `translateX(-${current * 100}%)`;
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
   goTo(0);
-  window.addEventListener('resize', () => goTo(current));
 
   document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
   document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
