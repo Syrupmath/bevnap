@@ -405,26 +405,26 @@
     }
     .phone-frame {
       width: 100%;
-      max-width: 300px;
+      max-width: 220px;
       background: #0a0a0a;
-      border-radius: 44px;
-      padding: 12px;
-      box-shadow: 0 0 0 1.5px #333, 0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px #222;
+      border-radius: 28px;
+      padding: 5px;
+      box-shadow: 0 0 0 1.5px #333, 0 20px 60px rgba(0,0,0,0.6), inset 0 0 0 1px #222;
       position: relative;
     }
     .phone-notch {
       position: absolute;
-      top: 12px;
+      top: 5px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
-      height: 28px;
+      width: 72px;
+      height: 18px;
       background: #0a0a0a;
-      border-radius: 0 0 18px 18px;
+      border-radius: 0 0 12px 12px;
       z-index: 2;
     }
     .phone-screen {
-      border-radius: 34px;
+      border-radius: 24px;
       overflow: hidden;
       display: block;
       width: 100%;
@@ -505,10 +505,21 @@
         transform: scale(1);
       }
       .phone-frame {
-        max-width: 240px;
+        max-width: 200px;
+        border-radius: 28px;
+        padding: 5px;
       }
       .carousel-slide.active .phone-frame {
-        max-width: 280px;
+        max-width: 260px;
+      }
+      .phone-notch {
+        top: 5px;
+        width: 72px;
+        height: 18px;
+        border-radius: 0 0 12px 12px;
+      }
+      .phone-screen {
+        border-radius: 24px;
       }
       .slide-caption {
         transition: opacity 0.42s ease;
