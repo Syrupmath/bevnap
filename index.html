@@ -627,76 +627,66 @@
     <span class="section-label">See it in action</span>
     <h2>Every screen, exactly as you'd use it.</h2>
   </div>
-  <div class="carousel-wrap">
-    <div class="carousel-track" id="carouselTrack">
+  <div style="position:relative; overflow:hidden; max-width:340px; margin:0 auto;">
+    <div id="carouselTrack" style="display:flex; transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);">
 
-      <div class="carousel-slide">
-        <div class="phone-frame">
-          <img class="phone-screen" src="images/screenshot-cocktails.png" alt="Cocktails screen" />
-        </div>
-        <div class="slide-caption">
-          <strong>Your cocktail library</strong>
-          <p>Browse your entire recipe collection in a beautiful grid. Search, filter, and find any drink in seconds.</p>
+      <div style="flex:0 0 100%; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:0 1rem;">
+        <img src="images/screenshot-cocktails.png" alt="Cocktails screen" style="width:100%; display:block; border-radius:8px;" />
+        <div style="text-align:center; height:7rem; overflow:hidden; padding-top:0.5rem;">
+          <strong style="display:block; font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:0.3rem;">Your cocktail library</strong>
+          <p style="font-size:0.88rem; color:#8a8478; line-height:1.55;">Browse your entire recipe collection in a beautiful grid. Search, filter, and find any drink in seconds.</p>
         </div>
       </div>
 
-      <div class="carousel-slide">
-        <div class="phone-frame">
-          <img class="phone-screen" src="images/screenshot-ingredients.png" alt="Ingredients screen" />
-        </div>
-        <div class="slide-caption">
-          <strong>Ingredients database</strong>
-          <p>A comprehensive, categorized ingredients list — spirits, syrups, juices, and more — all with the details that matter.</p>
+      <div style="flex:0 0 100%; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:0 1rem;">
+        <img src="images/screenshot-ingredients.png" alt="Ingredients screen" style="width:100%; display:block; border-radius:8px;" />
+        <div style="text-align:center; height:7rem; overflow:hidden; padding-top:0.5rem;">
+          <strong style="display:block; font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:0.3rem;">Ingredients database</strong>
+          <p style="font-size:0.88rem; color:#8a8478; line-height:1.55;">A comprehensive, categorized ingredients list — spirits, syrups, juices, and more — all with the details that matter.</p>
         </div>
       </div>
 
-      <div class="carousel-slide">
-        <div class="phone-frame">
-          <img class="phone-screen" src="images/screenshot-collections.png" alt="Collections screen" />
-        </div>
-        <div class="slide-caption">
-          <strong>Curated collections</strong>
-          <p>Subscribe to Jeffrey's own recipe collections — updated regularly — or build and share your own.</p>
+      <div style="flex:0 0 100%; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:0 1rem;">
+        <img src="images/screenshot-collections.png" alt="Collections screen" style="width:100%; display:block; border-radius:8px;" />
+        <div style="text-align:center; height:7rem; overflow:hidden; padding-top:0.5rem;">
+          <strong style="display:block; font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:0.3rem;">Curated collections</strong>
+          <p style="font-size:0.88rem; color:#8a8478; line-height:1.55;">Subscribe to Jeffrey's own recipe collections — updated regularly — or build and share your own.</p>
         </div>
       </div>
 
-      <div class="carousel-slide">
-        <div class="phone-frame">
-          <img class="phone-screen" src="images/screenshot-calculators.png" alt="Calculators screen" />
-        </div>
-        <div class="slide-caption">
-          <strong>Six professional calculators</strong>
-          <p>Batch, syrup, slushy, carbonation, cost, and ABV — every calculation a working bar program needs, in one place.</p>
+      <div style="flex:0 0 100%; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:0 1rem;">
+        <img src="images/screenshot-calculators.png" alt="Calculators screen" style="width:100%; display:block; border-radius:8px;" />
+        <div style="text-align:center; height:7rem; overflow:hidden; padding-top:0.5rem;">
+          <strong style="display:block; font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:0.3rem;">Six professional calculators</strong>
+          <p style="font-size:0.88rem; color:#8a8478; line-height:1.55;">Batch, syrup, slushy, carbonation, cost, and ABV — every calculation a working bar program needs, in one place.</p>
         </div>
       </div>
 
-      <div class="carousel-slide">
-        <div class="phone-frame">
-          <img class="phone-screen" src="images/screenshot-settings.png" alt="Settings screen" />
-        </div>
-        <div class="slide-caption">
-          <strong>Built to be yours</strong>
-          <p>Set your default pour cost target, currency, units, and categories. Backup and export everything, anytime.</p>
+      <div style="flex:0 0 100%; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:0 1rem;">
+        <img src="images/screenshot-settings.png" alt="Settings screen" style="width:100%; display:block; border-radius:8px;" />
+        <div style="text-align:center; height:7rem; overflow:hidden; padding-top:0.5rem;">
+          <strong style="display:block; font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:0.3rem;">Built to be yours</strong>
+          <p style="font-size:0.88rem; color:#8a8478; line-height:1.55;">Set your default pour cost target, currency, units, and categories. Backup and export everything, anytime.</p>
         </div>
       </div>
 
     </div>
+  </div>
 
-    <div class="carousel-nav">
-      <button class="carousel-btn" id="prevBtn" aria-label="Previous">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <div class="carousel-dots" id="carouselDots">
-        <button class="carousel-dot active" data-index="0"></button>
-        <button class="carousel-dot" data-index="1"></button>
-        <button class="carousel-dot" data-index="2"></button>
-        <button class="carousel-dot" data-index="3"></button>
-        <button class="carousel-dot" data-index="4"></button>
-      </div>
-      <button class="carousel-btn" id="nextBtn" aria-label="Next">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+  <div style="display:flex; align-items:center; justify-content:center; gap:1.5rem; margin-top:1.25rem;">
+    <button id="prevBtn" aria-label="Previous" style="width:40px; height:40px; border-radius:50%; border:1px solid #3a3830; background:transparent; color:var(--white); cursor:pointer; display:flex; align-items:center; justify-content:center;">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div style="display:flex; gap:6px; align-items:center;" id="carouselDots">
+      <button class="carousel-dot active" data-index="0"></button>
+      <button class="carousel-dot" data-index="1"></button>
+      <button class="carousel-dot" data-index="2"></button>
+      <button class="carousel-dot" data-index="3"></button>
+      <button class="carousel-dot" data-index="4"></button>
     </div>
+    <button id="nextBtn" aria-label="Next" style="width:40px; height:40px; border-radius:50%; border:1px solid #3a3830; background:transparent; color:var(--white); cursor:pointer; display:flex; align-items:center; justify-content:center;">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -709,20 +699,18 @@
 
   function goTo(n) {
     current = (n + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
   }
 
-  goTo(0);
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(current - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(current + 1); });
+  dots.forEach(function(d) { d.addEventListener('click', function() { goTo(+d.dataset.index); }); });
 
-  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
-
-  let startX = 0;
-  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
-  track.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - startX;
+  var startX = 0;
+  track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+  track.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
   }, {passive: true});
 })();
