@@ -405,41 +405,54 @@
     }
     .carousel-wrap {
       position: relative;
-      max-width: 340px;
+      max-width: 700px;
       margin: 0 auto;
+      overflow: hidden;
     }
     .carousel-track {
       display: flex;
       transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
     }
     .carousel-slide {
-      flex: 0 0 100%;
+      flex: 0 0 33.333%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
+      padding: 1rem 0.75rem;
+      transition: opacity 0.42s ease, transform 0.42s ease;
+      opacity: 0.35;
+      transform: scale(0.88);
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
     }
     .phone-frame {
-      width: 260px;
+      width: 100%;
+      max-width: 200px;
       background: #0a0a0a;
-      border-radius: 40px;
-      padding: 12px;
+      border-radius: 36px;
+      padding: 10px;
       box-shadow: 0 0 0 1.5px #333, 0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px #222;
       position: relative;
     }
+    .carousel-slide.active .phone-frame {
+      max-width: 240px;
+    }
     .phone-notch {
       position: absolute;
-      top: 12px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
-      height: 28px;
+      width: 80px;
+      height: 22px;
       background: #0a0a0a;
-      border-radius: 0 0 18px 18px;
+      border-radius: 0 0 14px 14px;
       z-index: 2;
     }
     .phone-screen {
-      border-radius: 30px;
+      border-radius: 28px;
       overflow: hidden;
       display: block;
       width: 100%;
@@ -449,7 +462,14 @@
     }
     .slide-caption {
       text-align: center;
-      max-width: 280px;
+      max-width: 240px;
+      transition: opacity 0.42s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .carousel-slide.active .slide-caption {
+      opacity: 1;
+      pointer-events: auto;
     }
     .slide-caption strong {
       display: block;
@@ -468,7 +488,7 @@
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
     .carousel-btn {
       width: 40px;
@@ -619,14 +639,20 @@
 (function() {
   const track = document.getElementById('carouselTrack');
   const dots = document.querySelectorAll('.carousel-dot');
+  const slides = document.querySelectorAll('.carousel-slide');
   let current = 0;
   const total = 5;
 
   function goTo(n) {
     current = (n + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
+    // Each slide is 33.333% wide; offset so active slide is centered (subtract 1 slide width)
+    track.style.transform = `translateX(calc(-${current * 33.333}% + 33.333%))`;
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
+
+  // Init: mark first slide active and center it
+  goTo(0);
 
   document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
   document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
