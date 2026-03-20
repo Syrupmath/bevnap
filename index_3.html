@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bevnap — Professional Cocktail Tools for iPhone & iPad</title>
+  <meta name="description" content="Bevnap is a professional cocktail app for bartenders and enthusiasts. Batch calculators, syrup math, ABV, pour cost, and your own recipe database — all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1a18;
+      --ink-soft:  #4a4a44;
+      --ink-muted: #8a8a80;
+      --rule:      #d8d5cc;
+      --cream:     #f7f5f0;
+      --cream-mid: #edeae2;
+      --amber:     #c8620a;
+      --amber-dark:#9e4c08;
+      --white:     #ffffff;
+      --radius:    6px;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .wordmark {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .wordmark span { color: var(--amber); }
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius);
+      transition: background 0.18s ease;
+    }
+    .header-cta:hover { background: var(--amber); }
+    .header-cta svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      color: var(--white);
+      padding: 5rem 2rem 4.5rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 760px;
+      margin: 0 auto 1.4rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--amber);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #b0aca0;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius);
+      transition: background 0.18s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover { background: var(--amber-dark); transform: translateY(-1px); }
+    .btn-primary svg { width: 18px; height: 18px; fill: currentColor; }
+    .hero-price {
+      font-size: 0.82rem;
+      color: #706c64;
+      margin-top: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 600px;
+      margin-bottom: 1.25rem;
+    }
+    .section-body {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+    .section-body p + p { margin-top: 1em; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-pull {
+      border-left: 3px solid var(--amber);
+      padding-left: 1.5rem;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.45;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    /* ── TOOLS GRID ── */
+    .tools { background: var(--cream); }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .tool-card:hover {
+      border-color: var(--amber);
+      box-shadow: 0 4px 20px rgba(200,98,10,0.08);
+    }
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--cream-mid);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: var(--amber);
+    }
+    .tool-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .tool-card h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* ── RECIPES ── */
+    .recipes { background: var(--ink); color: var(--white); }
+    .recipes .section-title { color: var(--white); }
+    .recipes .section-body { color: #a0998e; }
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .feature-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .feature-list li {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: #b0aca0;
+      line-height: 1.55;
+    }
+    .feature-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      background: var(--amber);
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M4 9l3.5 3.5 6.5-7' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .recipes-visual {
+      background: #26241e;
+      border-radius: 12px;
+      border: 1px solid #3a3830;
+      padding: 2rem;
+    }
+    .recipe-card-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .recipe-mock-header {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      border-bottom: 1px solid #3a3830;
+      padding-bottom: 1rem;
+    }
+    .recipe-mock-header span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.3rem;
+    }
+    .recipe-mock-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: #a0998e;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #2e2c26;
+    }
+    .recipe-mock-row .amt { color: var(--white); font-variant-numeric: tabular-nums; }
+    .recipe-mock-meta {
+      display: flex;
+      gap: 1.5rem;
+      padding-top: 0.5rem;
+    }
+    .meta-item { text-align: center; }
+    .meta-item .val {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      display: block;
+    }
+    .meta-item .lbl {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    /* ── CTA ── */
+    .cta-strip {
+      background: var(--amber);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+    .cta-strip p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      color: var(--amber);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius);
+      transition: transform 0.1s ease, box-shadow 0.18s ease;
+    }
+    .btn-white:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .btn-white svg { width: 18px; height: 18px; fill: currentColor; }
+    .cta-price {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.85rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--ink-muted);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--ink-muted); text-decoration: none; }
+    footer a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .about-grid, .recipes-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-pull { font-size: 1.1rem; }
+      .hero { padding: 3.5rem 1.5rem 3rem; }
+      .section { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="wordmark" href="#">Bev<span>nap</span></a>
+    <a class="header-cta" href="https://apps.apple.com/app/bevnap" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">For iPhone &amp; iPad</p>
+  <h1>Professional cocktail tools,<br><em>finally</em> in your pocket.</h1>
+  <p class="hero-sub">Bevnap combines the batch calculators and syrup math you rely on with a personal recipe database and professional bar management tools — built by a working bartender, for working bartenders.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://apps.apple.com/app/bevnap" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download — $4.99
+    </a>
+  </div>
+  <p class="hero-price">One-time purchase &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; Android coming soon</p>
+</section>
+
+<!-- ABOUT -->
+<section class="section about">
+  <div class="section-inner about-grid">
+    <div>
+      <p class="section-label">The backstory</p>
+      <h2 class="section-title">Built for the people who actually run cocktail programs</h2>
+      <div class="section-body">
+        <p>After years of developing the Batch Cocktail Calculator and Universal Syrup Calculator as standalone web tools, the question came up: what if all of this lived in a single app — one that could also hold a bartender's personal recipe library?</p>
+        <p>Bevnap is the answer. It brings together the precise, math-first calculators bartenders already trust with the kind of professional bar management tools that only come from thirty years working behind the bar — ABV, pour cost, recipe export, and more.</p>
+        <p>No subscription. No lock-in. Your recipes belong to you, and you can get them out anytime in plain text or spreadsheet format.</p>
+      </div>
+    </div>
+    <div>
+      <blockquote class="about-pull">
+        "I needed something practical — an app that I can use daily, behind the scenes as well as behind the bar."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="section tools">
+  <div class="section-inner">
+    <p class="section-label">The tools</p>
+    <h2 class="section-title">Everything you need. Nothing you don't.</h2>
+    <div class="section-body">
+      <p>Each calculator in Bevnap was built around a real problem from a real cocktail program. Precise, fast, and built to be used mid-shift.</p>
+    </div>
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+        </div>
+        <h3>Batch Cocktail Calculator</h3>
+        <p>Scale any recipe to any batch size with automatic dilution and ABV calculations. Built for high-volume service where consistency is non-negotiable.</p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>
+        </div>
+        <h3>Universal Syrup Calculator</h3>
+        <p>Calculate exact syrup yields by weight for any ratio — 1:1, 2:1, rich, honey, and beyond. Takes the guesswork out of prep and keeps your ratios consistent.</p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>ABV Calculator</h3>
+        <p>Calculate the alcohol by volume of any cocktail or batch on the fly — essential when building menus, writing specs, or answering the question guests always ask.</p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Pour Cost Calculator</h3>
+        <p>Know your numbers. Price out any cocktail against your spirit costs and target margins, so every drink on your menu earns its place.</p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 3H2v6h6V3zM16 3h-4v2h4V3zM20 7h-8v2h8V7zM16 11h-4v2h4v-2zM20 15h-8v2h8v-2zM8 13H2v6h6v-6z"/><path d="M2 3h20M2 21h20"/></svg>
+        </div>
+        <h3>Carbonation &amp; Pressure Calculator</h3>
+        <p>Dial in your gas pressure and carbonation levels for kegged cocktails, sparkling water, and carbonated serves — based on real CO₂ solubility data.</p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+        </div>
+        <h3>Slushy Calculator</h3>
+        <p>Freeze-point calculations for slushy and frozen cocktail machines, so your drinks hit the right consistency every time — not icy, not soup.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section class="section recipes">
+  <div class="section-inner recipes-grid">
+    <div>
+      <p class="section-label">Your recipe library</p>
+      <h2 class="section-title">Your black book. Your recipes. Your way out.</h2>
+      <div class="section-body">
+        <p>Bevnap is built around the idea that your recipes belong to you. Enter your personal specs, your house riffs on classics, the things you've been tweaking nightly for years — and know you can always get them back out.</p>
+      </div>
+      <ul class="feature-list">
+        <li>Build your personal recipe database — classics, originals, works-in-progress</li>
+        <li>Export everything to plain text or spreadsheet format, anytime</li>
+        <li>Share recipes with colleagues via the app, text message, or PDF</li>
+        <li>Jeffrey's own recipes, shared directly through the app</li>
+      </ul>
+    </div>
+    <div class="recipes-visual">
+      <div class="recipe-card-mock">
+        <div class="recipe-mock-header">
+          <span>Original</span>
+          Amaretto Sour
+        </div>
+        <div class="recipe-mock-row"><span>Amaretto</span><span class="amt">1½ oz</span></div>
+        <div class="recipe-mock-row"><span>Cask-proof bourbon</span><span class="amt">¾ oz</span></div>
+        <div class="recipe-mock-row"><span>Fresh lemon juice</span><span class="amt">1 oz</span></div>
+        <div class="recipe-mock-row"><span>Rich simple syrup (2:1)</span><span class="amt">1 tsp</span></div>
+        <div class="recipe-mock-row"><span>Egg white, lightly beaten</span><span class="amt">½ oz</span></div>
+        <div class="recipe-mock-meta">
+          <div class="meta-item"><span class="val">16.8%</span><span class="lbl">ABV</span></div>
+          <div class="meta-item"><span class="val">$2.85</span><span class="lbl">Cost</span></div>
+          <div class="meta-item"><span class="val">19%</span><span class="lbl">Pour cost</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <h2>Ready to put these tools to work?</h2>
+  <p>One purchase. Every calculator. Your entire recipe library. No subscription ever.</p>
+  <a class="btn-white" href="https://apps.apple.com/app/bevnap" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on the App Store — $4.99
+  </a>
+  <p class="cta-price">iPhone &amp; iPad &nbsp;·&nbsp; One-time purchase &nbsp;·&nbsp; Android coming soon</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Bevnap</p>
+</footer>
+
+</body>
+</html>
